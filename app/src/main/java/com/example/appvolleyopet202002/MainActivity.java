@@ -22,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -115,7 +116,21 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        String dados = response.toString();
+                        ArrayList<String> listdata = new ArrayList<String>();
+                        if(response != null){
+                            for(int i=0; i<response.length();i++){
+                                try {
+                                    listdata.add(response.getString(i));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        String dados = "";
+                        for (String data : listdata) {
+                            dados += data + " ";
+                        }
+                        //response.toString();
                         textResultado.setText(dados);
                     }
                 },
